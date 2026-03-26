@@ -12,7 +12,8 @@ public class VistaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaPrincipal.class.getName());
     
-    VistaJugar vJugar = new VistaJugar();    /**
+    VistaOp vOp = new VistaOp();
+    /**
      * Creates new form VistaPrincipal
      */
     public VistaPrincipal() {
@@ -40,7 +41,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Carrera De Escobas");
 
-        btnJugar.setBackground(new java.awt.Color(0, 153, 153));
         btnJugar.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
         btnJugar.setText("JUGAR");
         btnJugar.addActionListener(this::btnJugarActionPerformed);
@@ -91,7 +91,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
-    vJugar.setVisible(true);
+    vOp.setVisible(true);
     }//GEN-LAST:event_btnJugarActionPerformed
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed

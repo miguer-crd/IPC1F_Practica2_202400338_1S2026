@@ -9,5 +9,10 @@ package practica2.views;
  * @author Miguer Corado
  */
 public enum Casas {
+    GRYFFINDOR,
+    SLYTHERIN,
+    HUFFLEPUFF,
+    RAVENCLAW
+    
     
 }
