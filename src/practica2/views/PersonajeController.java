@@ -13,20 +13,21 @@ public class PersonajeController {
 
         PersonajeModel harry = new PersonajeModel();
         PersonajeModel draco = new PersonajeModel();
+        PersonajeModel hermi = new PersonajeModel(); 
 
         EscobaModel nimbus2000 = new EscobaModel();
         EscobaModel nimbus2001 = new EscobaModel();
         EscobaModel saeta = new EscobaModel();
 
-        nimbus2000.setDormirSeg(1000);
+        nimbus2000.setDormirSeg(3000);
         nimbus2000.setNombre("Nimbus 2000");
         nimbus2000.setIdEscoba(1);
 
-        nimbus2001.setDormirSeg(700);
+        nimbus2001.setDormirSeg(2000);
         nimbus2001.setNombre("Nimbus 2001");
         nimbus2001.setIdEscoba(2);
 
-        saeta.setDormirSeg(400);
+        saeta.setDormirSeg(1000);
         saeta.setNombre("Saeta de Fuego");
         saeta.setIdEscoba(3);
 
@@ -39,8 +40,14 @@ public class PersonajeController {
         draco.setCasa(Casas.SLYTHERIN);
         draco.setEscoba(nimbus2001);
         draco.setNombre("Draco Malfoy");
+        
+        hermi.setIdPersonaje(3);
+        hermi.setCasa(Casas.GRYFFINDOR);
+        hermi.setEscoba(saeta);
+        hermi.setNombre("Hermione Granger");
 
         personajes[contador++] = harry;
         personajes[contador++] = draco;
+        personajes[contador++] = hermi;
     }
 }   

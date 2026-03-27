@@ -24,7 +24,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace pref="447" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
+              <Component id="lblEvento" min="-2" pref="65" max="-2" attributes="0"/>
+              <EmptySpace pref="221" max="32767" attributes="0"/>
               <Component id="btnIniciar" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
@@ -45,14 +47,15 @@
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
               <Component id="lblMago1" min="-2" pref="74" max="-2" attributes="0"/>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="lblMago2" min="-2" pref="74" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnIniciar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblEvento" alignment="3" min="-2" pref="74" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -90,6 +93,15 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="OO"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblEvento">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="36" style="0"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="."/>
       </Properties>
     </Component>
   </SubComponents>
