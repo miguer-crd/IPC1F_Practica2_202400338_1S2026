@@ -13,5 +13,4 @@ public class PRACTICA2 {
        VistaPrincipal vPrincipal = new VistaPrincipal();
        vPrincipal.setVisible(true); 
     }
-    
 }

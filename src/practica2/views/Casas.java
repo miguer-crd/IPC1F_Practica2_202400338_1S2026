@@ -13,6 +13,4 @@ public enum Casas {
     SLYTHERIN,
     HUFFLEPUFF,
     RAVENCLAW
-    
-    
 }

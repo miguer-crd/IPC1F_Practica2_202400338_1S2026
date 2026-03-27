@@ -13,13 +13,16 @@ import static practica2.views.PersonajeController.personajes;
 public class VistaJugar extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaJugar.class.getName());
-
+    private boolean hayGanador = false;
     /**
      * Creates new form VistaJugar
      */
     public VistaJugar() {
-        initComponents();
-    }
+    initComponents();
+    
+    PersonajeController pc = new PersonajeController();
+    pc.agregarPersonajesQuemados();
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -30,26 +33,26 @@ public class VistaJugar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnRegresar = new javax.swing.JButton();
         lblMago1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        btnIniciar = new javax.swing.JButton();
+        lblMago2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("SALIR");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        btnRegresar.setText("SALIR");
+        btnRegresar.addActionListener(this::btnRegresarActionPerformed);
 
         lblMago1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         lblMago1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblMago1.setText("o");
 
-        jButton2.setText("INICIAR");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        btnIniciar.setText("INICIAR");
+        btnIniciar.addActionListener(this::btnIniciarActionPerformed);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("OO");
+        lblMago2.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        lblMago2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMago2.setText("OO");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -57,14 +60,14 @@ public class VistaJugar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(447, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnIniciar)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnRegresar)
                 .addGap(27, 27, 27))
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblMago2, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblMago1, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -74,41 +77,122 @@ public class VistaJugar extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(lblMago1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblMago2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnRegresar)
+                    .addComponent(btnIniciar))
                 .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        Thread hilo = new Thread (()->{
-            for(int x = lblMago1.getX(); x<= this.getWidth()-100; x+=10){
-                final int nuevaX = x;
-                javax.swing.SwingUtilities.invokeLater(()->{
-                    lblMago1.setLocation(nuevaX, lblMago1.getY());
-                });
-            }    
-            
+    private void btnIniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarActionPerformed
+    
+        Thread hilo = new Thread(() -> {
+        for(int x = lblMago1.getX(); x <= this.getWidth() - lblMago1.getWidth(); x += 10){
+
+            if(hayGanador) break;
+
+            final int nuevaX = x;
+
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                lblMago1.setLocation(nuevaX, lblMago1.getY());
+            });
+
+            // EVENTOS ALEATORIOS
+            int evento = (int)(Math.random() * 100);
+
             try{
-                Thread.sleep(personajes[0].getEscoba().getDormirSeg());
-                        
+                // SNITCH (gana automáticamente)
+                if(evento == 1){
+                    hayGanador = true;
+                    System.out.println("Jugador 1 atrapó la Snitch 🟡 y ganó!");
+                    break;
+                }
+
+                // BLUDGER (se ralentiza)
+                if(evento < 10){
+                    System.out.println("Jugador 1 golpeado por Bludger 💥");
+                    Thread.sleep(personajes[0].getEscoba().getDormirSeg() * 1000 + 2000);
+                }
+                // QUAFFLE (puntos)
+                else if(evento < 30){
+                    System.out.println("Jugador 1 obtuvo Quaffle 🔴 (+10 pts)");
+                }
+                else{
+                    Thread.sleep(personajes[0].getEscoba().getDormirSeg() * 1000);
+                }
+
             }catch(InterruptedException e){
                 e.printStackTrace();
-                
             }
-        });
-        
-        hilo.start();
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+            if(nuevaX >= this.getWidth() - lblMago1.getWidth()){
+                hayGanador = true;
+                System.out.println("Ganó jugador 1");
+                break;
+            }
+        }    
+    }); 
+
+    Thread hilo2 = new Thread(() -> {
+        for(int x = lblMago2.getX(); x <= this.getWidth() - lblMago2.getWidth(); x += 10){
+
+            if(hayGanador) break;
+
+            final int nuevaX = x;
+
+            javax.swing.SwingUtilities.invokeLater(() -> {
+                lblMago2.setLocation(nuevaX, lblMago2.getY());
+            });
+
+            // EVENTOS ALEATORIOS
+            int evento = (int)(Math.random() * 100);
+
+            try{
+                // SNITCH
+                if(evento == 1){
+                    hayGanador = true;
+                    System.out.println("Jugador 2 atrapó la Snitch y ganó!");
+                    break;
+                }
+
+                // BLUDGER
+                if(evento < 10){
+                    System.out.println("Jugador 2 golpeado por Bludger");
+                    Thread.sleep(personajes[1].getEscoba().getDormirSeg());
+                }
+                // QUAFFLE
+                else if(evento < 30){
+                    System.out.println("Jugador 2 obtuvo Quaffle (+10 pts)");
+                }
+                else{
+                    Thread.sleep(personajes[1].getEscoba().getDormirSeg());
+                }
+
+            }catch(InterruptedException e){
+                e.printStackTrace();
+            }
+
+            if(nuevaX >= this.getWidth() - lblMago2.getWidth()){
+                hayGanador = true;
+                System.out.println("Ganó jugador 2");
+                break;
+            }
+        }
+    });
+
+    hilo.start();
+    hilo2.start();
+
+      
+    }//GEN-LAST:event_btnIniciarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,9 +220,9 @@ public class VistaJugar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnIniciar;
+    private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel lblMago1;
+    private javax.swing.JLabel lblMago2;
     // End of variables declaration//GEN-END:variables
 }
