@@ -19,15 +19,15 @@ public class PersonajeController {
         EscobaModel nimbus2001 = new EscobaModel();
         EscobaModel saeta = new EscobaModel();
 
-        nimbus2000.setDormirSeg(3000);
+        nimbus2000.setDormirSeg(300);
         nimbus2000.setNombre("Nimbus 2000");
         nimbus2000.setIdEscoba(1);
 
-        nimbus2001.setDormirSeg(2000);
+        nimbus2001.setDormirSeg(200);
         nimbus2001.setNombre("Nimbus 2001");
         nimbus2001.setIdEscoba(2);
 
-        saeta.setDormirSeg(1000);
+        saeta.setDormirSeg(100);
         saeta.setNombre("Saeta de Fuego");
         saeta.setIdEscoba(3);
 
