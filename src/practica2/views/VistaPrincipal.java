@@ -17,7 +17,12 @@ public class VistaPrincipal extends javax.swing.JFrame {
      * Creates new form VistaPrincipal
      */
     public VistaPrincipal() {
-        initComponents();      
+        initComponents(); 
+         // Solo agregar personajes quemados si todavía no se han agregado
+        if (PersonajeController.contador == 0) {
+            PersonajeController pc = new PersonajeController();
+            pc.agregarPersonajesQuemados();
+        }   
     }
 
     /**
@@ -91,6 +96,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnJugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarActionPerformed
+    vOp.llenarComboPersonajes();
     vOp.setVisible(true);
     }//GEN-LAST:event_btnJugarActionPerformed
 
