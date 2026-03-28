@@ -1,23 +1,47 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package practica2.views;
 
-/**
- *
- * @author Miguer Corado
- */
+import javax.swing.JOptionPane;
+
+
 public class VistaCrearPersonaje extends javax.swing.JFrame {
+
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaCrearPersonaje.class.getName());
 
-    /**
-     * Creates new form VistaCrearPersonaje
-     */
+    private EscobaModel[] escobas;
+    
     public VistaCrearPersonaje() {
-        initComponents();
+    initComponents();
+    inicializarEscobas();
+    inicializarCasas();
+}
+    
+    private void inicializarEscobas() {
+    escobas = new EscobaModel[3];
+
+    escobas[0] = new EscobaModel();
+    escobas[0].setNombre("Nimbus 2000");
+    escobas[0].setDormirSeg(3000);
+
+    escobas[1] = new EscobaModel();
+    escobas[1].setNombre("Nimbus 2001");
+    escobas[1].setDormirSeg(2000);
+
+    escobas[2] = new EscobaModel();
+    escobas[2].setNombre("Saeta de Fuego");
+    escobas[2].setDormirSeg(1000);
+
+    for (EscobaModel e : escobas) {
+        comboEscoba.addItem(e.getNombre());
     }
+}
+
+private void inicializarCasas() {
+    for (Casas c : Casas.values()) {
+        comboCasa.addItem(c.name());
+    }
+}
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -56,13 +80,12 @@ public class VistaCrearPersonaje extends javax.swing.JFrame {
 
         txtNombre.addActionListener(this::txtNombreActionPerformed);
 
-        comboCasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboCasa.addActionListener(this::comboCasaActionPerformed);
 
-        comboEscoba.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         comboEscoba.addActionListener(this::comboEscobaActionPerformed);
 
         jButton1.setText("GUARDAR");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("CANCELAR");
         jButton2.addActionListener(this::jButton2ActionPerformed);
@@ -124,7 +147,7 @@ public class VistaCrearPersonaje extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void comboCasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCasaActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_comboCasaActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -138,6 +161,32 @@ public class VistaCrearPersonaje extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
      this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    String nombre = txtNombre.getText().trim();
+    String casaStr = (String) comboCasa.getSelectedItem();
+    Casas casa = Casas.valueOf(casaStr);
+
+    int indexEscoba = comboEscoba.getSelectedIndex();
+    EscobaModel escobaSeleccionada = escobas[indexEscoba];
+
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Debe ingresar un nombre", "Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    PersonajeModel nuevo = new PersonajeModel();
+    nuevo.setIdPersonaje(PersonajeController.contador + 1);
+    nuevo.setNombre(nombre);
+    nuevo.setCasa(casa);
+    nuevo.setEscoba(escobaSeleccionada);
+
+    PersonajeController.personajes[PersonajeController.contador++] = nuevo;
+
+    JOptionPane.showMessageDialog(this, "Personaje creado con éxito", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    dispose(); // cerrar ventana
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
