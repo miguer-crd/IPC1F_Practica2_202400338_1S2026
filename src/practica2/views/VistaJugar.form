@@ -29,7 +29,9 @@
                   <Component id="lblJugador" max="32767" attributes="0"/>
                   <Component id="lblOponente" pref="130" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
@@ -44,19 +46,22 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="236" max="-2" attributes="0"/>
                       <Component id="btnIniciar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="27" pref="214" max="32767" attributes="0"/>
+              <EmptySpace min="281" pref="225" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-              <Component id="lblJugador" min="-2" pref="16" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblJugador" alignment="3" min="-2" pref="16" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="lblMago1" min="-2" pref="74" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -76,7 +81,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnRegresar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="SALIR"/>
+        <Property name="text" type="java.lang.String" value="REGRESAR"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegresarActionPerformed"/>
@@ -124,6 +129,11 @@
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="O"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="META"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -7,20 +7,14 @@ package practica2.views;
 import javax.swing.*;
 import practica2.views.PersonajeModel;
 
-/**
- *
- * @author Miguer Corado
- */
 public class VistaJugar extends javax.swing.JFrame {
     
     private PersonajeModel jugador;
     private PersonajeModel oponente;
+    private volatile boolean hayGanador = false;
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(VistaJugar.class.getName());
   
-    /**
-     * Creates new form VistaJugar
-     */
     public VistaJugar() {
     initComponents();
 }
@@ -37,7 +31,6 @@ public class VistaJugar extends javax.swing.JFrame {
         lblMago1.setLocation(0, lblMago1.getY());
         lblMago2.setLocation(0, lblMago2.getY());
 
-        // Aquí se podrían inicializar posiciones, puntos y demás
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -54,10 +47,11 @@ public class VistaJugar extends javax.swing.JFrame {
         lblMago2 = new javax.swing.JLabel();
         lblJugador = new javax.swing.JLabel();
         lblOponente = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnRegresar.setText("SALIR");
+        btnRegresar.setText("REGRESAR");
         btnRegresar.addActionListener(this::btnRegresarActionPerformed);
 
         lblMago1.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
@@ -79,6 +73,8 @@ public class VistaJugar extends javax.swing.JFrame {
         lblOponente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblOponente.setText("O");
 
+        jLabel1.setText("META");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -88,7 +84,9 @@ public class VistaJugar extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblJugador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lblOponente, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(17, 17, 17))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -100,15 +98,17 @@ public class VistaJugar extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(236, 236, 236)
                         .addComponent(btnIniciar)
-                        .addGap(42, 42, 42)
+                        .addGap(18, 18, 18)
                         .addComponent(btnRegresar)))
-                .addGap(27, 214, Short.MAX_VALUE))
+                .addGap(225, 225, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(lblJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblMago1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
@@ -134,32 +134,73 @@ public class VistaJugar extends javax.swing.JFrame {
     // Hilo para mago 1 (jugador)
         Thread hiloMago1 = new Thread(() -> {
             for (int x = lblMago1.getX(); x <= this.getWidth() - lblMago1.getWidth(); x += 10) {
+
+                if (hayGanador) return; // detener si ya hay ganador
+
                 final int nuevaX = x;
+
+                // EVENTOS ALEATORIOS
+                int evento = (int)(Math.random() * 1000);
+
+                if (evento < 2) {
+                    System.out.println(jugador.getNombre() + " atrapo la Snitch!");
+                    declararGanador(jugador.getNombre());
+                    return;
+                } else if (evento < 15) {
+                    System.out.println(jugador.getNombre() + " fue golpeado por Bludger (+2 seg)");
+                    try { Thread.sleep(2000); } catch (InterruptedException e) {}
+                } else if (evento < 30) {
+                    System.out.println(jugador.getNombre() + " atrapo Quaffle");
+                }
+
                 javax.swing.SwingUtilities.invokeLater(() -> {
                     lblMago1.setLocation(nuevaX, lblMago1.getY());
                 });
+
                 try {
                     Thread.sleep(jugador.getEscoba().getDormirSeg());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+
+            declararGanador(jugador.getNombre());
         });
         hiloMago1.start();
 
         // Hilo para mago 2 (oponente)
         Thread hiloMago2 = new Thread(() -> {
             for (int x = lblMago2.getX(); x <= this.getWidth() - lblMago2.getWidth(); x += 10) {
+
+                if (hayGanador) return;
+
                 final int nuevaX = x;
+
+                int evento = (int)(Math.random() * 1000);
+
+                if (evento < 2) {
+                    System.out.println(oponente.getNombre() + " atrapo la Snitch!");
+                    declararGanador(oponente.getNombre());
+                    return;
+                } else if (evento < 15) {
+                    System.out.println(oponente.getNombre() + " fue golpeado por Bludger (+2 seg)");
+                    try { Thread.sleep(2000); } catch (InterruptedException e) {}
+                } else if (evento < 30) {
+                    System.out.println(oponente.getNombre() + " atrapo Quaffle");
+                }
+
                 javax.swing.SwingUtilities.invokeLater(() -> {
                     lblMago2.setLocation(nuevaX, lblMago2.getY());
                 });
+
                 try {
                     Thread.sleep(oponente.getEscoba().getDormirSeg());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
+
+            declararGanador(oponente.getNombre());
         });
         hiloMago2.start();
 
@@ -194,9 +235,20 @@ public class VistaJugar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblJugador;
     private javax.swing.JLabel lblMago1;
     private javax.swing.JLabel lblMago2;
     private javax.swing.JLabel lblOponente;
     // End of variables declaration//GEN-END:variables
+
+private void declararGanador(String nombre) {
+    if (!hayGanador) {
+        hayGanador = true;
+
+        SwingUtilities.invokeLater(() -> {
+            JOptionPane.showMessageDialog(this, nombre + " ganó la carrera!");
+        });
+    }
+}
 }
